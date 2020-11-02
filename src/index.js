@@ -1,19 +1,23 @@
-const alias = require('./api/alias');
+const repository = require('./api/repository');
 
-class ConnectorClient {
+class GitHubClient {
   constructor(config) {
     if (!config.host) {
       throw new Error("NO_HOST_ERROR");
     }
+    if (!config.token) {
+      throw new Error("NO_TOKEN_ERROR");
+    }
 
     this.host = config.host;
     this.port = config.port;
+    this.token = config.token;
     this.protocol = config.protocol || "https";
-    this.apiVersion = config.apiVersion || 2;
+    this.apiVersion = config.apiVersion || "v3";
     this.path_prefix = config.path_prefix ? config.path_prefix : "/";
     this.promise = config.promise || Promise;
 
-    this.alias = new alias(this);
+    this.repository = new repository(this);
   }
 
   buildURL(path, forcedVersion) {
@@ -32,7 +36,11 @@ class ConnectorClient {
 
   async makeRequest(options) {
     const opts = {
-      method: options.method || "GET"
+      method: options.method || "GET",
+      headers: {
+        "Authorization": `token ${this.token}`,
+        ...options.headers
+      }
     }
 
     if (options.qs) {
@@ -58,4 +66,4 @@ class ConnectorClient {
   }
 }
 
-export default ConnectorClient;
+export default GitHubClient;

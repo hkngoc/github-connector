@@ -13,7 +13,7 @@ const config = [
   {
     input: 'src/index.js',
     output: {
-      name: 'ConnectorClient',
+      name: 'GitHubClient',
       file: pkg.browser,
       format: 'umd',
     },

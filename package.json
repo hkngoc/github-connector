@@ -1,9 +1,9 @@
 {
-  "name": "@hkngoc/connector-boilerplate",
+  "name": "@hkngoc/github-connector",
   "version": "0.0.1",
-  "main": "dist/connector.cjs.js",
-  "module": "dist/connector.esm.js",
-  "browser": "dist/connector.umd.js",
+  "main": "dist/github-connector.cjs.js",
+  "module": "dist/github-connector.esm.js",
+  "browser": "dist/github-connector.umd.js",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
@@ -23,15 +23,15 @@
   "files": [
     "dist"
   ],
-  "description": "Small rest client connector boilerpalte for Lime-maker",
+  "description": "Small github-connector wrapper for Lime-maker",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hkngoc/connector-boilerplate.git"
+    "url": "git+https://github.com/hkngoc/github-connector.git"
   },
   "author": "hkngoc",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hkngoc/connector-boilerplate/issues"
+    "url": "https://github.com/hkngoc/github-connector/issues"
   },
-  "homepage": "https://github.com/hkngoc/connector-boilerplate#readme"
+  "homepage": "https://github.com/hkngoc/github-connector#readme"
 }
