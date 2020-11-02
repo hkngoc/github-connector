@@ -18,22 +18,30 @@ class RepositoryClient {
     return this.client.makeRequest(options);
   }
 
-  async listAllPullRequest(opts, prs = []) {
-    const r = await this.listPullRequests(opts);
-    prs.push(...r);
+  async listAllPullRequest({ options, projection, selection, breakFn, prs = [] }) {
+    const response = await this.listPullRequests(options);
+    let current = _(response).value();
 
-    if (r.length > 0) {
+    if (selection && typeof selection == "function") {
+      current = current.filter(issue => selection(issue));
+    }
+    if (projection && typeof projection == "function") {
+      current = current.map(issue => projection(issue));
+    }
+    prs.push(...current);
+
+    if ((breakFn && typeof selection == "function" && breakFn(response)) || response.length <= 0) {
+      return prs;
+    } else {
       const {
         qs,
         ...rest
-      } = opts;
+      } = options;
       const {
         page = 1
       } = qs;
 
-      return await this.listAllPullRequest({ ...rest, qs: { ...qs, page: page + 1 } }, prs);
-    } else {
-      return prs;
+      return await this.listAllPullRequest({ options: { ...rest, qs: { ...qs, page: page + 1 } }, projection, selection, breakFn, prs });
     }
   }
 

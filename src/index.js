@@ -40,7 +40,8 @@ class GitHubClient {
       headers: {
         "Authorization": `token ${this.token}`,
         ...options.headers
-      }
+      },
+      uri: options.uri
     }
 
     if (options.qs) {
