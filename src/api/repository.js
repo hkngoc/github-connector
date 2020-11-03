@@ -30,7 +30,7 @@ class RepositoryClient {
     }
     prs.push(...current);
 
-    if ((breakFn && typeof selection == "function" && breakFn(response)) || response.length <= 0) {
+    if ((breakFn && typeof breakFn == "function" && breakFn(response)) || response.length <= 0) {
       return prs;
     } else {
       const {
